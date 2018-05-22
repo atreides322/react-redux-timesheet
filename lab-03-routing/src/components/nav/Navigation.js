@@ -1,9 +1,38 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Nav, Navbar, NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+
 
 class Navigation extends Component {
-  // TODO - actually implement this for realz
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {_id: 'all'}
+    };
+  }
+
   render() {
-    return <div />;
+    return (
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            Timesheetz
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
+          <LinkContainer to="/projects">
+            <NavItem eventKey={1}>Projects</NavItem>
+          </LinkContainer>
+          <LinkContainer exact to="/employees">
+            <NavItem eventKey={3}>Employees</NavItem>
+          </LinkContainer>
+          <LinkContainer to={`/employees/${this.state.user._id}/timesheets`}>
+            <NavItem eventKey={2}>Timesheets</NavItem>
+          </LinkContainer>
+        </Nav>
+      </Navbar>
+    );
   }
 }
 
