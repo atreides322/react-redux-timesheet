@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { PageHeader, Grid, Row } from 'react-bootstrap';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router';
+import {Grid, PageHeader, Row} from 'react-bootstrap';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as TimesheetActions from '../../actions/TimesheetActionCreator';
 import Timeunits from '../timeunits/Timeunits';
 import TimesheetForm from './TimesheetForm';
@@ -19,12 +19,29 @@ class TimesheetsDetail extends Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  // TODO - implement me
-  handleSave(timesheet) {}
+  handleSave(timesheet) {
+    this.props.actions.updateTimesheet(timesheet).then(() => {
+      this.props.history.push(`/employees/all/timesheets`);
+    });
+  }
 
-  // TODO - implement me, too
   render() {
-    return <div />;
+    return (
+      <Grid>
+        <Row>
+          <PageHeader>Timesheet Detail</PageHeader>
+        </Row>
+        <Row>
+          <TimesheetForm timesheet={this.props.timesheet} actions={this.props.actions} handleSave={this.handleSave}/>
+        </Row>
+        { //Show timeunits after the getTimesheet() call finishes loading the timesheet
+          this.props.timesheet && this.props.timesheet._id &&
+          <Row>
+            <Timeunits timesheet={this.props.timesheet} actions={this.props.actions}/>
+          </Row>
+        }
+      </Grid>
+    );
   }
 }
 

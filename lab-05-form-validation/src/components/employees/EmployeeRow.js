@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from 'react-bootstrap';
-import { withRouter } from 'react-router';
+import {Button} from 'react-bootstrap';
+import {withRouter} from 'react-router';
 
 class EmployeeRow extends Component {
   handleClick(employee) {
@@ -15,7 +15,14 @@ class EmployeeRow extends Component {
     }
   }
 
-  //TODO: showDetail function goes here
+  showDetail(employee) {
+    if (employee.deleted) {
+      console.log('You cannot edit a deleted employee.');
+      return;
+    }
+
+    this.props.history.push('/employees/detail/' + employee._id);
+  }
 
   render() {
     const employee = this.props.employee;
@@ -39,7 +46,12 @@ class EmployeeRow extends Component {
 
     //TODO: Add onClick function to call showDetail in tr tag below
     return (
-      <tr className={rowClass}>
+      <tr
+        className={rowClass}
+        onClick={() => {
+          this.showDetail(employee)
+        }}
+      >
         <td>{employee.username}</td>
         <td>{employee.email}</td>
         <td>{employee.firstName}</td>

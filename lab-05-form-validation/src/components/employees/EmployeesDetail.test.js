@@ -1,8 +1,8 @@
 import React from 'react';
 import EmployeesDetail from './EmployeesDetail';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import configureStore from '../../store/configure-store';
-import { MemoryRouter } from 'react-router-dom';
+import {MemoryRouter} from 'react-router-dom';
 
 describe('Employees Detail Component: ', () => {
   let mockStore;
@@ -11,6 +11,13 @@ describe('Employees Detail Component: ', () => {
     mockStore = configureStore();
   });
 
-  //TODO: Implement me
-  it('should instantiate the Employees Detail Component', () => {});
+  it('should instantiate the Employees Detail Component', () => {
+    const component = mount(
+      <MemoryRouter>
+        <EmployeesDetail store={mockStore}/>
+      </MemoryRouter>
+    );
+
+    expect(component).toIncludeText('Employees Detail');
+  });
 });

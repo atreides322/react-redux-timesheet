@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Projects from './components/projects/Projects';
 import ProjectsDetail from './components/projects/ProjectsDetail';
@@ -12,7 +12,7 @@ import TimesheetsCreate from './components/timesheets/TimesheetsCreate';
 import TimeunitsCreate from './components/timeunits/TimeunitsCreate';
 import TimeunitsDetail from './components/timeunits/TimeunitsDetail';
 import Navigation from './components/nav/Navigation';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -26,12 +26,17 @@ class App extends Component {
             <Route path="/projects/create" component={ProjectsCreate} />
 
             <Route exact path="/employees" component={Employees} />
-            {/* TODO - Add the employee detail and create routes*/}
+            <Route path='/employees/detail/:_id' component={EmployeesDetail}/>
+            <Route path='/employees/create' component={EmployeesCreate}/>
 
             <Route exact path="/employees/:user_id/timesheets" component={Timesheets} />
-            {/* TODO - Add the timesheets detail and create routes */}
+            <Route path='/timesheets/create' component={TimesheetsCreate}/>
+            <Route exact path='/employees/:user_id/timesheets/detail/:_id' component={TimesheetsDetail}/>
 
-            {/* TODO - Add the timeunits detail and create routes*/}
+            <Route path='/employees/:user_id/timesheets/detail/:timesheet_id/timeunits/create'
+                   component={TimeunitsCreate}/>
+            <Route path='/employees/:user_id/timesheets/detail/:timesheet_id/timeunits/detail/:_id'
+                   component={TimeunitsDetail}/>
 
             <Redirect to="/employees" />
           </Switch>
